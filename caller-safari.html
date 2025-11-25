@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lemur-EchoMeP2P-Caller</title>
+  <link rel="stylesheet" href="mobile-style.css" />
+  
+  <!-- 🎵 CSS EM LINHA PARA MESA DE SOM -->
+  <style>
+    .botao-som {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      padding: 8px 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .botao-som:hover {
+      background: #45a049;
+    }
+    .botao-som:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎵 BOTÃO PARA ATIVAR SOM AMBIENTE -->
+  <button id="ativarSomBtn" class="botao-som" onclick="mesaMix.iniciarAudio()">
+    🔈 Ativar Som Ambiente
+  </button>
+
+  <div class="box-principal">
+    <img src="assets/images/lemurBlu.png" alt="Lemur Logo" class="logo" />
+    <img id="lemurWaiting" src="assets/images/lemurImpaciente.png" alt="Aguardando conexão" style="display: none;" />
+    <img src="assets/images/Bridg.png" alt="ponte" class="ponte" />
+    
+    <div id="mobileLoading" class="mobile-loader">
+      <div class="loader-circle"></div>
+    </div>
+
+    <div class="translator-label" id="translator-label">
+      Real-time translation.
+    </div>
+
+    <div class="social-links-fixed"></div>
+    <div id="instructionBox"></div>
+
+    <div class="remoter-Lang">🏳️</div>
+    <div class="local-Lang">🏳️</div>
+    <div class="local-mic-Lang">🏳️</div>
+
+    <div class="video-wrapper">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <div class="pip-local-wrapper">
+        <video id="localVideo" autoplay muted playsinline></video>
+      </div>
+    </div>
+
+    <div class="info-overlay hidden">
+      <span id="myId"></span>
+    </div>
+
+    <button id="callActionBtn" style="display: none;">SEND 🚀</button>
+    <div id="texto-recebido"></div>
+    <div class="language-flag" id="currentLanguageFlag">🇧🇷</div>
+    <button class="record-btn" id="recordButton" disabled>🎤</button>
+    <button id="tecladoTrigger" title="Abrir teclado nativo" disabled></button>
+  </div>
+
+  <div id="caixaTexto">
+    <textarea id="areaTexto"></textarea>
+  </div>
+
+  <button id="toggleCamera" class="camera-toggle-btn">
+    <img src="assets/images/girar-camera.png" alt="Alternar Câmera" />
+  </button>
+
+  <div class="recording-modal" id="recordingModal">
+    <div class="recording-indicator">
+      <div class="recording-dot"></div>
+      <div class="recording-text">●</div>
+      <div class="recording-timer" id="recordingTimer">0:00</div>
+    </div>
+    <button class="send-button" id="sendButton">📤</button>
+  </div>
+
+  <!-- 🔥 IMPORTE OS ARQUIVOS EXTERNOS -->
+  <script src="core/mesa-mix.js"></script>  <!-- 🎵 MESA DE SOM -->
+ <script src="core/tts-hibrido.js"></script>
+  <script src="core/teclado-nativo.js"></script>
+  <script src="core/redes-sociais.js"></script>
+  <script src="core/instruction-box.js"></script>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script type="module" src="./js/caller/caller-ui.js"></script>
+  <script src="./js/caller/caller-trz.js"></script>
+  
+</body>
+</html>
