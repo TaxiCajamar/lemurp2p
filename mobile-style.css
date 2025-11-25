@@ -1,0 +1,974 @@
+
+/* =============================================
+   CONFIGURAÇÕES GERAIS E LAYOUT PRINCIPAL
+   ============================================= */
+
+/* ===== ESTILOS GERAIS ===== */
+html {
+  height: 100%;
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  transition: background-color 0.5s;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+}
+
+.box-principal {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  background-color: #aee2ff;
+  position: relative;
+  overflow-y: auto;
+}
+/* 🎵 MESA DE MIXAGEM WEB AUDIO API */
+.mixer-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 15px;
+  border: 2px solid #0096FF;
+}
+
+.mixer-btn {
+  background: linear-gradient(45deg, #0096FF, #00D4FF);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 150, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.mixer-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 150, 255, 0.5);
+}
+
+.mixer-btn:active {
+  transform: scale(0.95);
+}
+
+.volume-display {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 5px;
+  font-family: Arial, sans-serif;
+}
+/* 🆕 ESTILO PARA O BOTÃO INVISÍVEL DE TESTE (AZUL CLARO) - MESMO DO RECEIVER */
+#tecladoTrigger {
+  position: absolute;
+  background-color: rgba(0, 150, 255, 0.3);
+  border: 2px dashed #0096FF;
+  cursor: pointer;
+  z-index: 10000;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#tecladoTrigger:hover {
+  background-color: rgba(0, 150, 255, 0.5);
+}
+
+/* 🆕 ESTILO QUANDO BOTÃO ESTÁ ATIVO */
+#tecladoTrigger.ativo {
+  background-color: rgba(0, 150, 255, 0.3);
+  opacity: 1;
+  cursor: pointer;
+}
+
+#tecladoTrigger.ativo:hover {
+  background-color: rgba(0, 150, 255, 0.5);
+}
+
+/* 🆕 CAIXA DE TEXTO CENTRALIZADA - MESMA DO RECEIVER */
+#caixaTexto {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 90%;
+  height: 20%;
+  background: white;
+  border: 2px solid #0096FF;
+  border-radius: 15px;
+  padding: 20px;
+  z-index: 10001;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+#areaTexto {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 16px;
+  resize: none;
+}
+
+/* Feedback visual quando teclado está ativo */
+.teclado-ativo {
+  background-color: rgba(0, 255, 0, 0.3) !important;
+  border: 2px solid #00FF00 !important;
+}
+
+
+/* =============================================
+   COMPONENTES DE TEXTO E REDES SOCIAIS FIXAS
+   ============================================= */
+
+/* ===== SUBTÍTULO DE TRADUÇÃO ===== */
+.translator-label {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333;
+  font-size: 5vw;
+  text-align: center;
+  width: 80%;
+  max-width: 90%;
+  margin: 0;
+}
+
+/* ===== REDES SOCIAIS FIXAS (NOVO - MENORES E MAIS PARA CIMA) ===== */
+.social-links-fixed {
+  position: absolute;
+  top: 10%; /* ⬅️ MAIS PARA CIMA - logo abaixo do subtítulo */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px; /* ⬅️ ESPAÇO MENOR ENTRE BOTÕES */
+  justify-content: center;
+  margin: 5px 0;
+  flex-wrap: wrap;
+  width: 80%;
+  z-index: 10;
+}
+
+  .social-buttons {
+  display: flex;
+  gap: 6px;           /* ⬅️ Menor gap entre botões */
+  justify-content: center;
+  margin: 5px 0;      /* ⬅️ Margem bem reduzida */
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  width: 40px !important;  /* ⬅️ Botões um pouco menores */
+  height: 40px !important;  
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.social-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2px;       /* ⬅️ Padding reduzido */
+}
+    
+    .social-links-fixed {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 10px 0;
+      flex-wrap: wrap;
+      width: 80%;
+      z-index: 10;
+    }
+
+    .social-btn-fixed {
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 5px;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .social-btn-fixed img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+    }
+/* =============================================
+   BOTÕES DE COMPARTILHAMENTO NO QR CODE (MANTÉM ORIGINAL)
+   ============================================= */
+
+.social-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.social-btn:hover {
+  transform: scale(1.1);
+}
+
+/* =============================================
+   ANIMAÇÕES E EFEITOS VISUAIS
+   ============================================= */
+
+/* ===== IMAGEM DE LÊMURE ANCIOSO (ESPERA) ===== */
+#lemurAnciosoWaiting {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: auto;
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+    animation: pulsar-suave-ancioso 2.5s infinite ease-in-out;
+}
+
+#lemurAnciosoWaiting.visible {
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
+@keyframes pulsar-suave-ancioso {
+    0% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+    100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ===== IMAGEM DE AGUARDANDO CONEXÃO ===== */
+#lemurWaiting {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: auto;
+    opacity: 0.7;
+    z-index: 9998;
+    pointer-events: none;
+    animation: pulsar-suave 2s infinite ease-in-out;
+}
+
+@keyframes pulsar-suave {
+    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+    100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ===== EFEITO DE PISCAR ===== */
+@keyframes piscar {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+.piscar-suave {
+    animation: piscar 2s infinite;
+}
+
+/* =============================================
+   COMPONENTES DE INTERFACE - INSTRUÇÕES
+   ============================================= */
+
+.instruction-box {
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 300px;
+  min-width: 200px;
+  padding: 1% 2%;
+  background: #ffffff;
+  border: 2px solid #4CAF50;
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 128, 0, 0.2);
+  font-size: 16px !important;
+  z-index: 100;
+  text-align: left;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.instruction-box.recolhido {
+  height: 40px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.instruction-box.expandido {
+  height: 300px !important; 
+  max-height: 1000px;
+}
+
+.instruction-item {
+  display: flex;
+  align-items: center;
+  gap: 3%;
+  margin-bottom: 1%;
+  line-height: 1.2;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  transition: opacity 0.3s ease;
+}
+
+.instruction-box.recolhido .instruction-item {
+  opacity: 0;
+  display: none;
+}
+
+.instruction-box.expandido .instruction-item {
+  opacity: 1;
+  display: flex;
+}
+
+.instruction-item img {
+   width: 30px !important;
+  height: 30px !important;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.instruction-toggle {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #4CAF50;
+  font-weight: bold;
+  z-index: 101;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.instruction-toggle:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.instruction-box.recolhido .instruction-toggle::after {
+  content: "?";
+  font-size: 14px;
+}
+
+.instruction-box.expandido .instruction-toggle::after {
+  content: "×";
+  font-size: 18px;
+}
+
+.instruction-box.recolhido:hover {
+  background: #f8fff8;
+  border-color: #45a049;
+}
+
+/* =============================================
+   COMPONENTES DE INTERFACE - BOTÕES E CONTROLES
+   ============================================= */
+
+.camera-toggle-btn {
+    position: absolute;
+    bottom: 45%;
+    right: 45%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #2196F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 35;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.camera-toggle-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
+}
+
+.camera-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.camera-toggle-btn img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: brightness(0.8);
+}
+
+#logo-traduz.botao-key {
+     position: absolute;
+    top: 45.5%;
+    left: 64%;
+    width: 15%;
+    max-width: 120px;
+    height: auto;
+    z-index: 40;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.2s ease;
+}
+
+#logo-traduz.botao-key:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+#logo-traduz.botao-key:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+#logo-traduz.botao-key img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.record-btn {
+    position: absolute;
+    top: 46%;
+    left: 78%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: #ff4757;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    border: none;
+    color: white;
+    transition: transform 0.2s, background-color 0.3s;
+    z-index: 30;
+}
+
+.record-btn.recording {
+    background: #2ed573;
+    animation: pulse 1.5s infinite;
+}
+
+.record-btn:active {
+  transform: scale(0.95);
+}
+
+.speaker-btn {
+  position: absolute;
+  top: 60%;
+  left: 78%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #2196F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: transform 0.2s, background-color 0.3s;
+  z-index: 30;
+}
+
+.speaker-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.speaker-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* =============================================
+   COMPONENTES DE INTERFACE - VÍDEO E MÍDIA
+   ============================================= */
+
+.video-wrapper {
+  position: absolute;
+  bottom: 45%;
+  right: 50%;
+  width: 35%;
+  height: 30%;
+  transform: translateX(-17%);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 0.3vw solid #4CAF50;
+  z-index: 5;
+  background: url('assets/images/telalemur.png') center/cover no-repeat;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pip-local-wrapper {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 30%;
+  height: 30%;
+  border: 0.3vw solid #2196F3;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.pip-local-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =============================================
+   COMPONENTES DE INTERFACE - TEXTOS E LABELS
+   ============================================= */
+
+#texto-recebido {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2em;
+  padding: 2vh 2vw;
+  margin: 2vh 0;
+  border: 0.2vh solid #4CAF50;
+  border-radius: 1vh;
+  background-color: #f8f9fa;
+  width: 90%;
+  min-height: 60px;
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: #333;
+  font-weight: bold;
+  opacity: 1;
+  visibility: visible;
+  box-sizing: border-box;
+  z-index: 30;
+}
+
+#logo-traduz {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15%;
+  max-width: 120px;
+  height: auto;
+  z-index: 40;
+}
+
+#click {
+  position: absolute;
+  top: 51.5%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  width: 15%;
+  max-width: 120px;
+  height: auto;
+  z-index: 50;
+  display: none;
+}
+
+.logo {
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  max-width: 200px;
+  height: auto;
+}
+
+.ponte {
+  position: absolute;
+  bottom: 60.2%;
+  right:2%;
+  width: 35%;
+  height: 15%;
+  transform: translateX(-17%);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 0.4vw solid #4CAF50;
+  z-index: 5;
+}
+
+/* =============================================
+   COMPONENTES DE INTERFACE - BANDEIRAS DE IDIOMA
+   ============================================= */
+
+.language-flag {
+  position: absolute;
+  top: 53%;
+  left: 83.6%;
+  font-size: 2rem;
+  z-index: 40;
+}
+
+.remoter-Lang {
+  position: absolute;
+  top: 31%;
+  left: 83%;
+  font-size: 6vw;
+  line-height: 1;
+  z-index: 10;
+}
+
+.local-Lang {
+  position: absolute;
+  top: 31%;
+  left: 58%;
+  font-size: 6vw;
+  line-height: 1;
+  z-index: 10;
+}
+
+/* =============================================
+   COMPONENTES DE INTERFACE - OVERLAYS E MODAIS
+   ============================================= */
+
+.info-overlay {
+  position: absolute;
+  top: 23%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  background-color: white;
+  border-radius: 20px;
+  padding: 2% 3%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  text-align: center;
+}
+
+.info-overlay.hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+.info-overlay:not(.hidden) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.info-overlay {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.qrcode-container {
+  margin: 2% auto;
+  padding: 3%;
+  max-width: 90%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  display: inline-block;
+}
+
+.qr-modal-title {
+  font-size: clamp(1rem, 5vw, 2rem);
+  white-space: nowrap;
+  text-align: center;
+  font-weight: bold;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.qr-modal-description {
+  font-size: 1.5rem;
+  margin-bottom: 5%;
+  color: #555;
+  line-height: 140%;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+.btn-copiar-simples {
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 15px auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-copiar-simples:hover {
+  background: #5a67d8;
+  transform: scale(1.1);
+}
+
+.btn-copiar-simples.copiado {
+  background: #48bb78;
+  transform: scale(1.1);
+}
+
+.recording-modal {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 320px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 20px;
+  padding: 6% 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: bottom 0.5s ease;
+  z-index: 40;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.recording-modal.visible {
+  bottom: 15%;
+}
+
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4%;
+  width: 100%;
+}
+
+.recording-dot {
+  width: 12px;
+  height: 12px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: blink 1s infinite;
+}
+
+.recording-text {
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.recording-timer {
+  color: white;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.send-button {
+  width: 15%;
+  height: 15%;
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 50%;
+  background: #219ebc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.send-button:active {
+  transform: scale(0.95);
+  background: #126782;
+}
+
+/* =============================================
+   LOADERS E ANIMAÇÕES
+   ============================================= */
+
+.mobile-loader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.8); display: flex; justify-content: center; 
+    align-items: center; z-index: 9999;
+}
+.loader-circle {
+    width: 50px; height: 50px; border: 5px solid #fff; 
+    border-top: 5px solid #2196F3; border-radius: 50%; 
+    animation: spin 1s linear infinite;
+}
+
+/* =============================================
+   ANIMAÇÕES PRINCIPAIS
+   ============================================= */
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+@keyframes pulsar {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes pulsar-flutuar-intenso {
+  0% { 
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    opacity: 0.9;
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(255, 0, 0, 1);
+    opacity: 1;
+  }
+  100% { 
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    opacity: 0.9;
+  }
+}
+
+/* =============================================
+   CONTROLES E BOTÕES DE AÇÃO
+   ============================================= */
+
+.callActionBtn {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  width: 60%;
+  height: 6%;
+  border-radius: 50px;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  background: #4CAF50;
+  z-index: 1000
+}
+
+/* =============================================
+   ESTILOS ESPECÍFICOS POR PÁGINA
+   ============================================= */
+
+caller.html #texto-recebido {
+  border-color: #2196F3;
+  background-color: #e3f2fd;
+}
+
+receiver.html #texto-recebido {
+  border-color: #4CAF50;
+  background-color: #f1f8e9;
+}
+
+/* =============================================
+   MEDIA QUERIES - RESPONSIVIDADE
+   ============================================= */
+
+@media (max-width: 480px) {
+  .instruction-box {
+    width: 90%;
+    font-size: 0.8em;
+    bottom: 0.5%;
+  }
+  
+  .instruction-item img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .instruction-box {
+    width: 70%;
+    font-size: 1em;
+  }
+}
